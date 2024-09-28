@@ -1,12 +1,33 @@
-create table user (
-  id int unsigned primary key auto_increment not null,
-  email varchar(255) not null unique,
-  password varchar(255) not null
+-- Active: 1727035875920@@127.0.0.1@3306@recipes
+
+create Table users(
+  id int PRIMARY KEY Auto_increment NOT NULL,
+  pseudo VARCHAR(50) NOT NULL,
+  email VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(250) NOT NULL
 );
 
-create table item (
-  id int unsigned primary key auto_increment not null,
-  title varchar(255) not null,
-  user_id int unsigned not null,
-  foreign key(user_id) references user(id)
+CREATE Table categories(
+ id int PRIMARY KEY Auto_increment NOT NULL,
+ name VARCHAR(50) NOT NULL
+);
+
+
+CREATE Table recipes(
+ id int PRIMARY KEY Auto_increment NOT NULL,
+ name VARCHAR(50) NOT NULL,
+ preparation_time TIME NOT NULL,
+ ingredients VARCHAR(250) NOT NULL,
+ instruction VARCHAR(250) not NULL,
+ users_id INT NOT NULL,
+ categories_id INT NOT NULL,
+ FOREIGN KEY (users_id) REFERENCES users(id),
+ FOREIGN KEY (categories_id) REFERENCES categories(id)
+);
+
+CREATE Table pictures(
+ id int PRIMARY KEY Auto_increment NOT NULL,
+ name VARCHAR(50) NOT NULL,
+ recipies_id int NOT NULL,
+ Foreign Key (recipies_id) REFERENCES recipes(id)
 );
