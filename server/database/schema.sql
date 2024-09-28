@@ -31,3 +31,7 @@ CREATE Table pictures(
  recipies_id int NOT NULL,
  Foreign Key (recipies_id) REFERENCES recipes(id)
 );
+
+INSERT INTO categories(name) VALUES ("Entrée"), ("Repas"), ("Dessert");
+
+SELECT * FROM categories;
