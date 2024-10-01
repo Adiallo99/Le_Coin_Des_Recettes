@@ -34,4 +34,4 @@ CREATE Table pictures(
 
 INSERT INTO categories(name) VALUES ("Entrée"), ("Repas"), ("Dessert");
 
-SELECT * FROM categories;
+SELECT * FROM users;
