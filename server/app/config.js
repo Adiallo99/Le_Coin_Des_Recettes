@@ -54,7 +54,7 @@ app.use(
 
 // Uncomment one or more of these options depending on the format of the data sent by your client:
 
-// app.use(express.json());
+app.use(express.json());
 // app.use(express.urlencoded());
 // app.use(express.text());
 // app.use(express.raw());
@@ -85,10 +85,10 @@ app.use(
 /* ************************************************************************* */
 
 // Import the API router
-const apiRouter = require("./routers/api/router");
+const Router = require("./router");
 
 // Mount the API router under the "/api" endpoint
-app.use("/api", apiRouter);
+app.use("/api", Router);
 
 /* ************************************************************************* */
 
