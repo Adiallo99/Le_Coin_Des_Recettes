@@ -12,7 +12,12 @@ const add = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    res.status(200).json({ message: "vous êtes bien connecté" });
+    console.info("le token", req.token)
+    res.cookie("auth", req.token).json({ message: "connexion réussie",
+      id: req.user.id,
+      email: req.user.email
+     });
+   
   } catch (error) {
     next(error);
   }

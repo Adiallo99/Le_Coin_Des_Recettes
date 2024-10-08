@@ -1,5 +1,7 @@
 const argon2 = require("argon2");
+const jwt = require("jsonwebtoken");
 const tables = require("../../database/tables");
+
 
 const hashingOptions = {
   type: argon2.argon2id,
@@ -33,23 +35,42 @@ const verifEmail = async (req, res, next) => {
   }
 };
 
-const verifUser = async (req, res, next) => {
+const veriPassword = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await tables.users.readByEmail(email);
+    req.user = {
+       id : user.id,
+       email : user.email,
+    }
+
     if (user) {
       if (await argon2.verify(user.password, password)) {
-        res.send("connexion réussie");
         next();
       } else {
         res.send("identifiant incorrect");
       }
     } else {
-      res.send("erreur identifiant");
+      res.send("erreur d'identifiant ou compte inexistant!");
     }
   } catch (err) {
     next(err);
   }
-};
+  };
 
-module.exports = { hashPassword, verifEmail, verifUser };
+  const createToken = async (req, res, next) => {
+    try{
+      const payload = req.user;
+      const token = jwt.sign(payload, process.env.APP_SECRET, {expiresIn: '1m'})
+      req.token = token;
+      next();
+
+    }catch(err){
+      next(err);
+    }
+  }
+
+
+
+
+module.exports = { hashPassword, verifEmail, veriPassword, createToken};
