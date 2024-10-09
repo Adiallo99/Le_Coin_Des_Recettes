@@ -3,6 +3,7 @@ const tables = require("../../database/tables");
 const add = async (req, res, next) => {
   const user = req.body;
   try {
+    console.info(req.body)
     const userId = await tables.users.create(user);
     res.status(201).json({ userId, message: "inscription reussie" });
   } catch (err) {
