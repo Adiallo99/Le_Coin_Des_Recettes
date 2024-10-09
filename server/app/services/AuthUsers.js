@@ -69,8 +69,11 @@ const veriPassword = async (req, res, next) => {
       next(err);
     }
   }
+/*
+const verifToken = async (req, res, next) => {
+  console.info("coucou");
 
-
-
+};
+*/
 
 module.exports = { hashPassword, verifEmail, veriPassword, createToken};
