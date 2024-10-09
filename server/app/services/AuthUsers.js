@@ -54,6 +54,7 @@ const veriPassword = async (req, res, next) => {
       res.send("erreur d'identifiant ou compte inexistant!");
     }
   } catch (err) {
+    res.send("erreur d'identifiant ou compte inexistant!");
     next(err);
   }
   };
@@ -61,19 +62,28 @@ const veriPassword = async (req, res, next) => {
   const createToken = async (req, res, next) => {
     try{
       const payload = req.user;
-      const token = jwt.sign(payload, process.env.APP_SECRET, {expiresIn: '1m'})
+      const token = jwt.sign(payload, process.env.APP_SECRET, {expiresIn: '30d'})
       req.token = token;
       next();
 
     }catch(err){
       next(err);
     }
-  }
-/*
+  };
+
 const verifToken = async (req, res, next) => {
-  console.info("coucou");
-
+  try{
+    const {auth} = req.cookies;
+    const result = await jwt.verify(auth, process.env.APP_SECRET);
+    if(result){
+      next();
+    }
+    
+  }catch(err){
+    res.send({message: "une connexion est require pour éffectuer cette action!"})
+    next(err);
+  }
 };
-*/
 
-module.exports = { hashPassword, verifEmail, veriPassword, createToken};
+
+module.exports = { hashPassword, verifEmail, veriPassword, createToken, verifToken};

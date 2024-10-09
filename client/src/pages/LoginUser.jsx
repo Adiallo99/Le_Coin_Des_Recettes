@@ -14,12 +14,12 @@ function LoginUser (){
                 {email, password},
                 { withCredentials: true }
             );
-            if(response.status === 200){
+
+            setMessage(response.data)
+            if(response.data.message){
                 setMessage(response.data.message)
-            }else{
-                setMessage(response.data)
             }
-            
+            console.info(response)
         }catch(error){
             console.error(error)
         }

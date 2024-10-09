@@ -3,7 +3,6 @@ const tables = require("../../database/tables");
 const add = async (req, res, next) => {
   const user = req.body;
   try {
-    console.info(req.body)
     const userId = await tables.users.create(user);
     res.status(201).json({ userId, message: "inscription reussie" });
   } catch (err) {
@@ -13,7 +12,6 @@ const add = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    console.info("le token", req.token)
     res.cookie("auth", req.token).json({ message: "connexion réussie",
       id: req.user.id,
       email: req.user.email
