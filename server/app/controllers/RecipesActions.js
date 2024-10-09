@@ -10,6 +10,17 @@ const browse = async(req, res, next) => {
     }
 }
 
+const readByUser = async(req, res, next) => {
+
+    try{
+        const recipe = await tables.recipes.readByUser();
+         res.json(recipe)
+
+    }catch(error){
+        next(error);
+    }
+}
+
 const add = async(req, res, next) => {
     const recipe = req.body;
     try{
@@ -24,6 +35,6 @@ const add = async(req, res, next) => {
 
 }
 
-const RecipesAction = {browse , add}
+const RecipesAction = {browse, readByUser, add}
 
 module.exports = RecipesAction;
