@@ -78,12 +78,35 @@ const verifToken = async (req, res, next) => {
     if(result){
       next();
     }
-    
   }catch(err){
     res.send({message: "une connexion est require pour éffectuer cette action!"})
     next(err);
   }
 };
 
+const takeUserId = async (req, res, next) => {
+  try{
+    const  { auth } = req.cookies;
+    const decodeToken = await jwt.verify(auth, process.env.APP_SECRET);
+    const cookiesId = decodeToken.id;
+    req.body.users_id = cookiesId;
+    if(req.body.users_id){
+      next()
+    }
+    console.info("est ce moi", cookiesId)
 
-module.exports = { hashPassword, verifEmail, veriPassword, createToken, verifToken};
+
+    /*
+
+    
+    const userId = decodeToken.id;
+   */
+
+  }catch(err){
+    res.json({message: "vous n'avez pas le drois de modifier cette recette"})
+    next(err);
+  }
+}
+
+
+module.exports = { hashPassword, verifEmail, veriPassword, createToken, verifToken, takeUserId};
