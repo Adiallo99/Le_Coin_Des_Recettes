@@ -1,5 +1,11 @@
+import { Outlet } from "react-router-dom";
+
 function App() {
-  return <h1>Bienvenue dans mes recettes de cuisines</h1>;
+  return(
+      <main>
+        <Outlet />
+      </main>
+  )
 }
 
 export default App;

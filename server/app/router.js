@@ -21,6 +21,8 @@ router.post("/recipe", auth.verifToken, recipes.add);
 
 router.put("/recipe/:id", auth.verifToken, recipes.edit);
 
+router.delete("/recipe/:id", auth.verifToken, recipes.destroy);
+
 /* ************************************************************************* */
 
 module.exports = router;
