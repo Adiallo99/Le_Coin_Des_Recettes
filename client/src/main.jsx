@@ -13,57 +13,56 @@ import EditRecipe from "./pages/EditRecipe";
 import UserAction from "./services/UserAction";
 import RecipeAction from "./services/RecipeAction";
 import getAllCategories from "./services/CategorieLoader";
-import {getAllRecipe, getRecipeById, getAllRecipeUser } from "./services/RecipeLoader";
-
+import {
+  getAllRecipe,
+  getRecipeById,
+  getAllRecipeUser,
+} from "./services/RecipeLoader";
 
 import App from "./App";
-
-
-
-
 
 const router = createBrowserRouter([
   {
     element: <App />,
     children: [
-    {
-      path: "/",
-      element: <Home />,
-      loader: async () => ({
-        recipes: await getAllRecipe(),
-        categories: await getAllCategories(), 
-      }),
-    },
-    {
-      path: "/register",
-      element: <RegisterUser />,
-      action: UserAction,
-    },
-    {
-      path: "/login",
-      element: <LoginUser />,
-    },
-    {
-      path: "/recipe/add",
-      element: <AddRecipe />,
-      loader: () => getAllCategories(),
-      action: RecipeAction,
-    },
-    {
-      path: "/recipe/edit/:id",
-      element: <EditRecipe />,
-      loader: async ({ params }) => ({
-        recipes: await getRecipeById(params.id),
-        categories: await getAllCategories(), 
-      }),
-      action: RecipeAction,
-    },
-    {
-      path: "/recipe",
-      element: <RecipeUser />,
-      loader: () => getAllRecipeUser(),
-      action: RecipeAction,
-    },
+      {
+        path: "/",
+        element: <Home />,
+        loader: async () => ({
+          recipes: await getAllRecipe(),
+          categories: await getAllCategories(),
+        }),
+      },
+      {
+        path: "/register",
+        element: <RegisterUser />,
+        action: UserAction,
+      },
+      {
+        path: "/login",
+        element: <LoginUser />,
+      },
+      {
+        path: "/recipe/add",
+        element: <AddRecipe />,
+        loader: () => getAllCategories(),
+        action: RecipeAction,
+      },
+      {
+        path: "/recipe/edit/:id",
+        element: <EditRecipe />,
+        loader: async ({ params }) => ({
+          recipes: await getRecipeById(params.id),
+          categories: await getAllCategories(),
+        }),
+        action: RecipeAction,
+      },
+      {
+        path: "/recipe",
+        element: <RecipeUser />,
+        loader: () => getAllRecipeUser(),
+        action: RecipeAction,
+      },
     ],
   },
 ]);

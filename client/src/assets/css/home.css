@@ -1,0 +1,32 @@
+.homeContainer {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.homeContainer > .recipeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0.5rem;
+}
+.homeContainer > .recipeContainer > .recipeDetail {
+  background-color: rgb(246, 246, 246);
+  border: 1px solid gray;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.homeContainer > .recipeContainer > .recipeDetail > a {
+  display: flex;
+  gap: 1rem;
+}
+
+.formDelete {
+  display: flex;
+  gap: 0.5rem;
+}
+.formDelete > button {
+  padding: 0 1rem;
+  border-radius: 0.5rem;
+  background-color: rgb(225, 81, 81);
+}
