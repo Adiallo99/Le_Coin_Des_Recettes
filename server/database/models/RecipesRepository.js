@@ -8,25 +8,32 @@ class RecipesRepository extends AbstractRepository{
     async readAll(categorie){
 
         if(!categorie){
-            const rows = await this.database.query(`SELECT * FROM ${this.table}`);
+            const rows = await this.database.query(`SELECT ${this.table}.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
+            on categories.id = ${this.table}.categories_id`);
             return rows[0];
         }
 
-        const rows = await this.database.query(`SELECT * FROM ${this.table} INNER JOIN categories 
-        on categories.id = ${this.table}.categories_id WHERE categories.id = ? `,
-        [categorie.id] 
+        const rows = await this.database.query(`SELECT ${this.table}.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
+        on categories.id = ${this.table}.categories_id WHERE ${this.table}.categories_id = ? `,
+        [categorie.categories_id] 
         );
 
         return rows[0];
+    }
 
-        
-        
+    async readById(recipe){
+        const rows = await this.database.query(`SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
+        on categories.id = ${this.table}.categories_id WHERE ${this.table}.id = ? `,
+        [recipe.id] 
+        );
+
+        return rows[0];
     }
 
     async readByUser(recipes, categorie){
 
         if(!categorie){
-            const rows = await this.database.query(`SELECT * FROM ${this.table} INNER JOIN categories 
+            const rows = await this.database.query(`SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
                 on categories.id = ${this.table}.categories_id WHERE users_id = ?`, 
                 [recipes]
             );
@@ -34,8 +41,8 @@ class RecipesRepository extends AbstractRepository{
             return rows[0];
         }
 
-        const rows = await this.database.query(`SELECT * FROM ${this.table} INNER JOIN categories 
-            on categories.id = ${this.table}.categories_id WHERE users_id = ? AND categories.id = ?`, 
+        const rows = await this.database.query(`SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
+            on categories.id = ${this.table}.categories_id WHERE users_id = ? AND  ${this.table}.categories_id = ?`, 
             [recipes, categorie]
         );
     

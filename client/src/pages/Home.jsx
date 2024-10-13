@@ -2,6 +2,7 @@ import { useLoaderData } from "react-router-dom";
 
 
 function Home(){
+    console.info(useLoaderData())
     const {recipes, categories} = useLoaderData();
    
     

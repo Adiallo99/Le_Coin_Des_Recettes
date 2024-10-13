@@ -13,6 +13,7 @@ const auth = require("./services/AuthUsers");
 
 router.get("/categorie", categories.browse);
 router.get("/recipe", recipes.browse);
+router.get("/recipe/:id", recipes.readById);
 router.get("/myRecipe", auth.verifToken, recipes.readByUser);
 
 router.post("/register", auth.hashPassword, auth.verifEmail, users.add);

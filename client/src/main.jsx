@@ -7,11 +7,14 @@ import RegisterUser from "./pages/RegisterUser";
 import LoginUser from "./pages/LoginUser";
 import Home from "./pages/Home";
 import AddRecipe from "./pages/AddRecipe";
+import RecipeUser from "./pages/RecipeUser";
+import EditRecipe from "./pages/EditRecipe";
 
 import UserAction from "./services/UserAction";
-import getAllRecipe from "./services/RecipeLoader";
-import getAllCategories from "./services/CategorieLoader";
 import RecipeAction from "./services/RecipeAction";
+import getAllCategories from "./services/CategorieLoader";
+import {getAllRecipe, getRecipeById, getAllRecipeUser } from "./services/RecipeLoader";
+
 
 import App from "./App";
 
@@ -41,9 +44,24 @@ const router = createBrowserRouter([
       element: <LoginUser />,
     },
     {
-      path: "/AddRecipe",
+      path: "/recipe/add",
       element: <AddRecipe />,
       loader: () => getAllCategories(),
+      action: RecipeAction,
+    },
+    {
+      path: "/recipe/edit/:id",
+      element: <EditRecipe />,
+      loader: async ({ params }) => ({
+        recipes: await getRecipeById(params.id),
+        categories: await getAllCategories(), 
+      }),
+      action: RecipeAction,
+    },
+    {
+      path: "/recipe",
+      element: <RecipeUser />,
+      loader: () => getAllRecipeUser(),
       action: RecipeAction,
     },
     ],
