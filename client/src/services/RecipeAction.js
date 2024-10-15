@@ -3,24 +3,18 @@ import myAxios from "./myAxios";
 
 const RecipeAction = async ({ request, params }) => {
   const formData = await request.formData();
-  console.info(formData);
 
   switch (request.method.toLowerCase()) {
     case "post": {
       try {
         const response = await myAxios.post(
-          "/api/recipe",
+          "/api/recipe", formData,
           {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-            name: formData.get("name"),
-            preparation_time: formData.get("preparation_time"),
-            ingredients: formData.get("ingredients"),
-            instruction: formData.get("instruction"),
-            categories_id: formData.get("categorie"),
-          },
-          { withCredentials: true }
+             headers: {
+               "Content-Type": "multipart/form-data",
+             },
+             withCredentials: true, 
+           }
         );
         if (response.status !== 201) {
           return response.data;

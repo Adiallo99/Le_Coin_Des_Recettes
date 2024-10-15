@@ -14,7 +14,7 @@ function AddRecipe() {
           </div>
           <div>
             <label htmlFor="categorie">categorie *</label>
-            <select id="categorie" name="categorie">
+            <select id="categorie" name="categories_id">
               {categories.map((categorie) => (
                 <option key={categorie.id} value={categorie.id}>
                   {categorie.name}
@@ -33,6 +33,10 @@ function AddRecipe() {
           <div>
             <label htmlFor="instruction">instruction *</label>
             <textarea id="instruction" name="instruction" required />
+          </div>
+          <div>
+            <label htmlFor="pictures">Photo *</label>
+            <input type="file" id="pictures" name="pictures" required />
           </div>
           <div>{message}</div>
         </div>
