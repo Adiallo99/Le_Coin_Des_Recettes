@@ -4,8 +4,9 @@ const tables = require("../../database/tables");
 
 const browse = async (req, res, next) => {
   try {
-    const { categories } = req.query;
-    const recipe = await tables.recipes.readAll(categories);
+    const { categorie } = req.query;
+    console.info(req.query)
+    const recipe = await tables.recipes.readAll(categorie);
     res.json(recipe);
   } catch (error) {
     next(error);
@@ -23,11 +24,12 @@ const readById = async (req, res, next) => {
 
 const readByUser = async (req, res, next) => {
   const user = req.cookies.auth;
-  const { categories } = req.query;
+  const { categorie } = req.query;
   try {
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
-    const recipe = await tables.recipes.readByUser(userId, categories);
+    console.info(req.query)
+    const recipe = await tables.recipes.readByUser(userId, categorie);
 
     if (recipe.length > 0) {
       res.json(recipe);
@@ -47,9 +49,7 @@ const add = async (req, res, next) => {
   try {
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
-    console.info(userId);
     const recipeId = await tables.recipes.create(recipe, userId);
-    console.info(recipeId);
     res.status(201).json({ recipeId, message: "Recette ajouter avec succée!" });
   } catch (error) {
     res.send({ message: "une erreur est survenue veuillez réessayer!" });

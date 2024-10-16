@@ -21,6 +21,7 @@ import {
 
 import App from "./App";
 
+
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -28,10 +29,15 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: async () => ({
-          recipes: await getAllRecipe(),
-          categories: await getAllCategories(),
-        }),
+        loader: async ({ request }) => {
+          const url = new URL(request.url);
+          const categorie = url.searchParams.get("categorie");
+          const result = {
+            categories: await getAllCategories(),
+            recipes: await getAllRecipe(categorie)
+          };
+          return result;
+        },
       },
       {
         path: "/register",
@@ -60,7 +66,15 @@ const router = createBrowserRouter([
       {
         path: "/recipe",
         element: <RecipeUser />,
-        loader: () => getAllRecipeUser(),
+        loader: async ({ request }) => {
+          const url = new URL(request.url);
+          const categorie = url.searchParams.get("categorie");
+          const result = {
+            categories: await getAllCategories(),
+            recipes: await getAllRecipeUser(categorie)
+          };
+          return result;
+        },
         action: RecipeAction,
       },
     ],

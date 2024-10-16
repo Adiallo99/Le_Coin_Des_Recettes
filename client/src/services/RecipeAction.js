@@ -29,18 +29,22 @@ const RecipeAction = async ({ request, params }) => {
     case "put": {
       try {
         const response = await myAxios.put(
-          `/api/recipe/${params.id}`,
+          `/api/recipe/${params.id}`, formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
             },
+            withCredentials: true
+            /*
             name: formData.get("name"),
             preparation_time: formData.get("preparation_time"),
             ingredients: formData.get("ingredients"),
             instruction: formData.get("instruction"),
             categories_id: formData.get("categorie"),
+         
+          */
           },
-          { withCredentials: true }
+          {  }
         );
 
         if (response.status !== 201) {

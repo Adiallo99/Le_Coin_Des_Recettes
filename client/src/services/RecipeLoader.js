@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export function getAllRecipe() {
+export function getAllRecipe(categorie) {
   return axios
-    .get(`${import.meta.env.VITE_API_URL}/api/recipe`)
+    .get(`${import.meta.env.VITE_API_URL}/api/recipe?categorie=${categorie}`)
     .then((response) => response.data)
     .catch((err) => console.error(err));
 }
@@ -14,11 +14,12 @@ export function getRecipeById(id) {
     .catch((err) => console.error(err));
 }
 
-export function getAllRecipeUser() {
+export function getAllRecipeUser(categorie) {
   return axios
-    .get(`${import.meta.env.VITE_API_URL}/api/myRecipe`, {
+    .get(`${import.meta.env.VITE_API_URL}/api/myRecipe?categorie=${categorie}`, {
       withCredentials: true,
     })
-    .then((response) => response.data)
+    .then((response) => {console.info(response.data) 
+      return response.data})
     .catch((err) => console.error(err));
 }
