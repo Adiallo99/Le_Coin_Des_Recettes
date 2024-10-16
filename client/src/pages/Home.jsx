@@ -1,13 +1,21 @@
-import { useLoaderData } from "react-router-dom";
+
+import { useLoaderData, useNavigate } from "react-router-dom";
+
 
 function Home() {
-  const { recipes, categories } = useLoaderData();
+  const {recipes, categories } = useLoaderData();
+
+  const navigate = useNavigate()
+
+  const filterByCategorie = (even) =>{
+    navigate(`?categorie=${even.target.value}`);
+  }
 
   return (
     <div className="homeContainer">
       <h2>Bienveneue dans mes recettes</h2>
-      <select>
-        <option>---</option>
+      <select onChange={filterByCategorie}>
+        <option value="">---</option>
         {categories.map((categorie) => (
           <option key={categorie.id} value={categorie.id}>
             {categorie.name}

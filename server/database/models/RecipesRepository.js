@@ -6,17 +6,20 @@ class RecipesRepository extends AbstractRepository {
   }
 
   async readAll(categorie) {
-    if (!categorie) {
-      const rows = await this.database
-        .query(`SELECT ${this.table}.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
-            on categories.id = ${this.table}.categories_id`);
+
+    if (!categorie || categorie === "null") {
+      const rows = await this.database.query(
+        `SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
+                on categories.id = ${this.table}.categories_id `,
+      );
+
       return rows[0];
     }
 
     const rows = await this.database.query(
-      `SELECT ${this.table}.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
-        on categories.id = ${this.table}.categories_id WHERE ${this.table}.categories_id = ? `,
-      [categorie.categories_id]
+      `SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
+            on categories.id = ${this.table}.categories_id WHERE categories_id = ?`,
+      [categorie]
     );
 
     return rows[0];
@@ -33,7 +36,7 @@ class RecipesRepository extends AbstractRepository {
   }
 
   async readByUser(recipes, categorie) {
-    if (!categorie) {
+    if (!categorie || categorie === "null") {
       const rows = await this.database.query(
         `SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
                 on categories.id = ${this.table}.categories_id WHERE users_id = ?`,
