@@ -3,7 +3,6 @@ import { useLoaderData, useActionData } from "react-router-dom";
 
 function FormRecipe({ recipes }) {
   const { categories } = useLoaderData();
-  console.info("rec", recipes[0].name);
   const message = useActionData();
 
   return (
@@ -60,6 +59,15 @@ function FormRecipe({ recipes }) {
           defaultValue={(recipes && recipes[0].instruction) || ""}
         />
       </div>
+      <div>
+        <label htmlFor="name">Photo de la recette *</label>
+        <input
+          type="file"
+          id="pictures"
+          name="pictures"
+        />
+      </div>
+
       <div>{message}</div>
     </div>
   );
@@ -72,6 +80,7 @@ FormRecipe.propTypes = {
     preparation_time: PropTypes.string,
     ingredients: PropTypes.string,
     instruction: PropTypes.string,
+    pictutes: PropTypes.string,
   }).isRequired,
 };
 

@@ -1,4 +1,5 @@
 // Load the express module to create a web application
+const path = require("path");
 
 const express = require("express");
 
@@ -107,11 +108,16 @@ app.use("/api", Router);
 // 1. Uncomment the lines related to serving static files and redirecting unhandled requests.
 // 2. Ensure that the `reactBuildPath` points to the correct directory where your client's build artifacts are located.
 
+const publicFolderPath = path.join(__dirname, "/../public");
+
+
+app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
+
 /*
 const path = require("path");
 
 const reactBuildPath = path.join(__dirname, "/../../client/dist");
-const publicFolderPath = path.join(__dirname, "/../public");
+
 
 // Serve react resources
 
