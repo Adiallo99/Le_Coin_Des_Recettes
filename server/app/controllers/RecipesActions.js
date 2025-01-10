@@ -47,6 +47,7 @@ const add = async (req, res, next) => {
   const user = req.cookies.auth;
   const recipe = req.body;
   try {
+    console.info("requete", recipe)
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
     const recipeId = await tables.recipes.create(recipe, userId);

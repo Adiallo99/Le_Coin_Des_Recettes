@@ -13,8 +13,10 @@ const RecipeAction = async ({ request, params }) => {
              headers: {
                "Content-Type": "multipart/form-data",
              },
+
              withCredentials: true, 
            }
+           
         );
         if (response.status !== 201) {
           return response.data;

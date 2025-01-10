@@ -56,10 +56,9 @@ class RecipesRepository extends AbstractRepository {
   }
 
   async create(recipes, userId) {
-    console.info("user",  userId)
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, preparation_time, ingredients, instruction, users_id, categories_id, pictures)
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (name, preparation_time, ingredients, instruction, users_id, categories_id)
+            VALUES (?, ?, ?, ?, ?, ?)`,
       [
         recipes.name,
         recipes.preparation_time,
@@ -67,7 +66,6 @@ class RecipesRepository extends AbstractRepository {
         recipes.instruction,
         userId,
         recipes.categories_id,
-        recipes.pictures,
       ]
     );
     return result.insertId;
