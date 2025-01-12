@@ -9,19 +9,22 @@ const RecipeAction = async ({ request, params }) => {
       try {
         console.info("coucou je suis arriver juste là", formData)
         const response = await myAxios.post(
-          "/api/recipe", 
+          "/api/recipe", formData,
           {
              headers: {
                "Content-Type": "multipart/form-data",
              },
+             /*
             name: formData.get("name"),
             preparation_time: formData.get("preparation_time"),
             ingredients: formData.get("ingredients"),
             instruction: formData.get("instruction"),
+            pictures: formData.get("pictures"),
             categories_id: formData.get("categories_id"),
-
+            */
+            withCredentials: true, 
            },
-           {withCredentials: true, }
+           
            
         );
         if (response.status !== 201) {
@@ -37,18 +40,14 @@ const RecipeAction = async ({ request, params }) => {
     case "put": {
       try {
         const response = await myAxios.put(
-          `/api/recipe/${params.id}`, 
+          `/api/recipe/${params.id}`, formData,
           {
             headers: {
               "Content-Type": "multipart/form-data",
             },
-            name: formData.get("name"),
-            preparation_time: formData.get("preparation_time"),
-            ingredients: formData.get("ingredients"),
-            instruction: formData.get("instruction"),
-            categories_id: formData.get("categorie"),
+            withCredentials: true,
           },
-          { withCredentials: true }
+          console.info("donné récupérer ", formData)
         );
 
         if (response.status !== 201) {

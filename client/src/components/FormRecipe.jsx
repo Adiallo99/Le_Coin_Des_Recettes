@@ -21,7 +21,7 @@ function FormRecipe({ recipes }) {
         <label htmlFor="categorie">categorie *</label>
         <select
           id="categorie"
-          name="categorie"
+          name="categories_id"
           defaultValue={(recipes && recipes[0].categoriesName) || ""}
         >
           {categories.map((categorie) => (
@@ -65,6 +65,7 @@ function FormRecipe({ recipes }) {
           type="file"
           id="pictures"
           name="pictures"
+          defaultValue={(recipes && recipes[0].pictutes) || ""}
         />
       </div>
 

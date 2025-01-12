@@ -57,13 +57,14 @@ class RecipesRepository extends AbstractRepository {
 
   async create(recipes, userId) {
     const [result] = await this.database.query(
-      `INSERT INTO ${this.table} (name, preparation_time, ingredients, instruction, users_id, categories_id)
-            VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO ${this.table} (name, preparation_time, ingredients, instruction, pictures, users_id, categories_id)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         recipes.name,
         recipes.preparation_time,
         recipes.ingredients,
         recipes.instruction,
+        recipes.pictures,
         userId,
         recipes.categories_id,
       ]
@@ -72,18 +73,25 @@ class RecipesRepository extends AbstractRepository {
   }
 
   async update(recipes, userId) {
-    const [result] = await this.database.query(
-      `UPDATE ${this.table} SET name = ?, preparation_time = ?, ingredients = ?, instruction = ?, categories_id = ? WHERE id = ? AND users_id = ?`,
-      [
-        recipes.name,
-        recipes.preparation_time,
-        recipes.ingredients,
-        recipes.instruction,
-        recipes.categories_id,
-        recipes.id,
-        userId,
-      ]
-    );
+    
+    let query = `UPDATE ${this.table} SET name = ?, preparation_time = ?, ingredients = ?, instruction = ?, categories_id = ? `;
+    const params = [
+      recipes.name,
+      recipes.preparation_time,
+      recipes.ingredients,
+      recipes.instruction,
+      recipes.categories_id,
+    ];
+
+    if(recipes.pictures){
+      query += `, pictures = ?`;
+      params.push(recipes.pictures,);
+    }
+
+    query += `WHERE id = ? AND users_id = ?`;
+    params.push(recipes.id, userId);
+
+    const [result] = await this.database.query(query, params);
 
     return result.affectedRows;
   }

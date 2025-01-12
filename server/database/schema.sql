@@ -19,6 +19,8 @@ CREATE Table recipes(
  preparation_time TIME NOT NULL,
  ingredients VARCHAR(250) NOT NULL,
  instruction VARCHAR(250) not NULL,
+ pictures VARCHAR(250) DEFAULT NULL,
+ pictures_second VARCHAR(250) DEFAULT NULL,
  users_id INT NOT NULL,
  categories_id INT NOT NULL,
  FOREIGN KEY (users_id) REFERENCES users(id),
