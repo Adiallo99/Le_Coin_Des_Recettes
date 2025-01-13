@@ -1,18 +1,28 @@
-import { Link, useLoaderData, useNavigate } from "react-router-dom";
+import { Link, useLoaderData, useNavigate  } from "react-router-dom";
+import myAxios from "../services/myAxios";
 
 import defaultPicture from "../assets/images/default_picture.jpg"
 
 function RecipeUser() {
   const {recipes, categories} = useLoaderData();
 
-  console.info("recette", recipes.message)
-  console.info("categories", categories)
 
   const navigate = useNavigate();
 
   const filterByCategorie = (even) =>{
     navigate(`/recipe?categorie=${even.target.value}`);
   }
+
+  const handleDelete = async (id) => {
+    try {
+      await myAxios.delete(`/api/recipe/${id}`, 
+       { withCredentials: true,}
+      );
+      navigate("/recipe");
+    } catch (error) {
+      console.info('error')
+    }
+  };
 
   return (
     <div className="homeContainer">
@@ -29,7 +39,7 @@ function RecipeUser() {
         {(recipes.message) ? "" :  recipes.map((recipe) => (
           <ul key={recipe.id} className="recipeDetail">
             <Link to={`/recipe/edit/${recipe.id}`}>
-              <li className="recipeName">{recipe.name} ✏️ </li> <div>🗑️</div>
+              <li className="recipeName">{recipe.name} ✏️ </li> 
             </Link>
             <li>{recipe.categoriesName}</li>
             <li>{recipe.preparation_time}</li>
@@ -38,8 +48,13 @@ function RecipeUser() {
             <div>
               <img src={recipe.pictures ? `${import.meta.env.VITE_API_URL}/uploads/${recipe.pictures}` : defaultPicture} alt={recipe.name}/> 
             </div>
+            
+            <button type="submit" onClick={() => handleDelete(recipe.id)}> Supprimer 🗑️ </button>
+            
           </ul>
+           
         ))
+       
       }
       </div>
     </div>

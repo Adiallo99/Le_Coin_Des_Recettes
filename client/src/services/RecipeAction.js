@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+
 import myAxios from "./myAxios";
 
 const RecipeAction = async ({ request, params }) => {
@@ -14,14 +14,6 @@ const RecipeAction = async ({ request, params }) => {
              headers: {
                "Content-Type": "multipart/form-data",
              },
-             /*
-            name: formData.get("name"),
-            preparation_time: formData.get("preparation_time"),
-            ingredients: formData.get("ingredients"),
-            instruction: formData.get("instruction"),
-            pictures: formData.get("pictures"),
-            categories_id: formData.get("categories_id"),
-            */
             withCredentials: true, 
            },
            
@@ -58,12 +50,6 @@ const RecipeAction = async ({ request, params }) => {
       } catch (err) {
         return err.response.data;
       }
-    }
-    case "delete": {
-      await myAxios.delete(`/api/recipe/${params.id}`, {
-        withCredentials: true,
-      });
-      return redirect(`/recipe`);
     }
 
     default:

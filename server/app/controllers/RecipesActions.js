@@ -76,11 +76,12 @@ const edit = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
+    console.info("couc")
     const user = req.cookies.auth;
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
-    const id = req.params;
-    await tables.recipes.delete(id, userId);
+    const recipeId= req.params;
+    await tables.recipes.delete(recipeId, userId);
     res.sendStatus(204);
   } catch (err) {
     res
