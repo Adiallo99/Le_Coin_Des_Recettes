@@ -36,7 +36,7 @@ function AddRecipe() {
           </div>
           <div>
             <label htmlFor="pictures">Photo *</label>
-            <input type="file" id="pictures" name="pictures"  />
+            <input type="file" id="pictures" name="pictures" />
           </div>
           <div>{message}</div>
         </div>

@@ -16,10 +16,15 @@ export function getRecipeById(id) {
 
 export function getAllRecipeUser(categorie) {
   return axios
-    .get(`${import.meta.env.VITE_API_URL}/api/myRecipe?categorie=${categorie}`, {
-      withCredentials: true,
+    .get(
+      `${import.meta.env.VITE_API_URL}/api/myRecipe?categorie=${categorie}`,
+      {
+        withCredentials: true,
+      }
+    )
+    .then((response) => {
+      console.info(response.data);
+      return response.data;
     })
-    .then((response) => {console.info(response.data) 
-      return response.data})
     .catch((err) => console.error(err));
 }

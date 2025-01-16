@@ -21,7 +21,6 @@ import {
 
 import App from "./App";
 
-
 const router = createBrowserRouter([
   {
     element: <App />,
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
           const categorie = url.searchParams.get("categorie");
           const result = {
             categories: await getAllCategories(),
-            recipes: await getAllRecipe(categorie)
+            recipes: await getAllRecipe(categorie),
           };
           return result;
         },
@@ -71,7 +70,7 @@ const router = createBrowserRouter([
           const categorie = url.searchParams.get("categorie");
           const result = {
             categories: await getAllCategories(),
-            recipes: await getAllRecipeUser(categorie)
+            recipes: await getAllRecipeUser(categorie),
           };
           return result;
         },

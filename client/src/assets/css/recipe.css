@@ -6,3 +6,13 @@
   padding: 2rem;
   margin: 3rem auto;
 }
+
+/*** pour le modal de la page recipeUser ***/
+
+.active {
+  display: flex;
+}
+
+.inactive {
+  display: none;
+}

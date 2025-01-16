@@ -1,18 +1,16 @@
-
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 import defaultPicture from "../assets/images/default_picture.jpg";
 
-
 function Home() {
-  const {recipes, categories } = useLoaderData();
-  console.info(recipes)
+  const { recipes, categories } = useLoaderData();
+  console.info(recipes);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const filterByCategorie = (even) =>{
+  const filterByCategorie = (even) => {
     navigate(`?categorie=${even.target.value}`);
-  }
+  };
 
   return (
     <div className="homeContainer">
@@ -33,7 +31,14 @@ function Home() {
             <li>{recipe.ingredients}</li>
             <li>{recipe.instruction}</li>
             <div>
-              <img src={recipe.pictures ? `${import.meta.env.VITE_API_URL}/uploads/${recipe.pictures}` : defaultPicture} alt={recipe.name}/> 
+              <img
+                src={
+                  recipe.pictures
+                    ? `${import.meta.env.VITE_API_URL}/uploads/${recipe.pictures}`
+                    : defaultPicture
+                }
+                alt={recipe.name}
+              />
             </div>
           </ul>
         ))}
