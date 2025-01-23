@@ -19,7 +19,7 @@ router.get("/myRecipe", auth.verifToken, recipes.readByUser);
 
 router.post("/register", auth.hashPassword, auth.verifEmail, users.add);
 router.post("/login", auth.veriPassword, auth.createToken, users.login);
-router.post("/recipe",  auth.verifToken, middleware.upload, recipes.add);
+router.post("/recipe", auth.verifToken, middleware.upload, recipes.add);
 
 router.put("/recipe/:id", auth.verifToken, middleware.upload, recipes.edit);
 

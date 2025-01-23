@@ -110,7 +110,6 @@ app.use("/api", Router);
 
 const publicFolderPath = path.join(__dirname, "/../public");
 
-
 app.get("*.*", express.static(publicFolderPath, { maxAge: "1y" }));
 
 /*

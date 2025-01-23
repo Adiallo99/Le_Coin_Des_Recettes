@@ -6,11 +6,10 @@ class RecipesRepository extends AbstractRepository {
   }
 
   async readAll(categorie) {
-
     if (!categorie || categorie === "null") {
       const rows = await this.database.query(
         `SELECT recipes.*, categories.name AS categoriesName FROM ${this.table} INNER JOIN categories 
-                on categories.id = ${this.table}.categories_id `,
+                on categories.id = ${this.table}.categories_id `
       );
 
       return rows[0];
@@ -73,7 +72,6 @@ class RecipesRepository extends AbstractRepository {
   }
 
   async update(recipes, userId) {
-    
     let query = `UPDATE ${this.table} SET name = ?, preparation_time = ?, ingredients = ?, instruction = ?, categories_id = ? `;
     const params = [
       recipes.name,
@@ -83,9 +81,9 @@ class RecipesRepository extends AbstractRepository {
       recipes.categories_id,
     ];
 
-    if(recipes.pictures){
+    if (recipes.pictures) {
       query += `, pictures = ?`;
-      params.push(recipes.pictures,);
+      params.push(recipes.pictures);
     }
 
     query += `WHERE id = ? AND users_id = ?`;

@@ -5,7 +5,7 @@ const tables = require("../../database/tables");
 const browse = async (req, res, next) => {
   try {
     const { categorie } = req.query;
-    console.info(req.query)
+    console.info(req.query);
     const recipe = await tables.recipes.readAll(categorie);
     res.json(recipe);
   } catch (error) {
@@ -28,7 +28,7 @@ const readByUser = async (req, res, next) => {
   try {
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
-    console.info(req.query)
+    console.info(req.query);
     const recipe = await tables.recipes.readByUser(userId, categorie);
 
     if (recipe.length > 0) {
@@ -47,7 +47,7 @@ const add = async (req, res, next) => {
   const user = req.cookies.auth;
   const recipe = req.body;
   try {
-    console.info("requete", recipe)
+    console.info("requete", recipe);
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
     const recipeId = await tables.recipes.create(recipe, userId);
@@ -76,11 +76,11 @@ const edit = async (req, res, next) => {
 
 const destroy = async (req, res, next) => {
   try {
-    console.info("couc")
+    console.info("couc");
     const user = req.cookies.auth;
     const decodeToken = await jwt.verify(user, process.env.APP_SECRET);
     const userId = decodeToken.id;
-    const recipeId= req.params;
+    const recipeId = req.params;
     await tables.recipes.delete(recipeId, userId);
     res.sendStatus(204);
   } catch (err) {

@@ -12,13 +12,11 @@ const add = async (req, res, next) => {
 
 const login = async (req, res, next) => {
   try {
-    res
-      .cookie("auth", req.token)
-      .json({
-        message: "connexion réussie",
-        id: req.user.id,
-        email: req.user.email,
-      });
+    res.cookie("auth", req.token).json({
+      message: "connexion réussie",
+      id: req.user.id,
+      email: req.user.email,
+    });
   } catch (error) {
     next(error);
   }
